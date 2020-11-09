@@ -46,5 +46,43 @@ describe 'As a visitor' do
         expect(page).to have_content(@patient_3.age)
       end
     end
+
+    it 'next to each patient, I see a button to remove him from caseload' do
+      visit doctor_path(@doctor)
+
+      within("#patient-#{@patient_1.id}") do
+        expect(page).to have_button('Remove from caseload')
+      end
+
+      within("#patient-#{@patient_2.id}") do
+        expect(page).to have_button('Remove from caseload')
+      end
+
+      within("#patient-#{@patient_3.id}") do
+        expect(page).to have_button('Remove from caseload')
+      end
+    end
+
+    it 'when i click a button to remove patient, i am on the same page, but no longer see that patient' do
+      visit doctor_path(@doctor)
+
+      within("#patient-#{@patient_1.id}") do
+        click_button('Remove from caseload')
+      end
+
+      expect(page).to_not have_css("#patient-#{@patient_1.id}")
+      expect(page).to_not have_content(@patient_1.name)
+      expect(page).to_not have_content(@patient_1.age)
+
+      within("#patient-#{@patient_2.id}") do
+        expect(page).to have_content(@patient_2.name)
+        expect(page).to have_content(@patient_2.age)
+      end
+
+      within("#patient-#{@patient_3.id}") do
+        expect(page).to have_content(@patient_3.name)
+        expect(page).to have_content(@patient_3.age)
+      end
+    end
   end
 end
