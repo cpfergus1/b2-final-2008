@@ -18,24 +18,33 @@ describe 'As a visitor' do
   end
   describe 'I visit the doctors show page and' do
     it 'see name, specialty, and university' do
-      visit "/doctors/#{doctor.id}"
+      visit "/doctors/#{@doctor.id}"
       expect(page).to have_content(@doctor.name)
       expect(page).to have_content(@doctor.specialty)
-      expect(page).to have_content(@doctor.university)
+      expect(page).to have_content(@doctor.education)
     end
 
     it 'I see the hospital the doctor belongs to' do
-      visit "/doctors/#{doctor.id}"
-      expect(page).to have_content(@doctor.hospital)
+      visit "/doctors/#{@doctor.id}"
+      expect(page).to have_content(@doctor.hospital.name)
     end
 
     it 'I see all the patients the doctor is seeing' do
-      expect(page).to have_content(@patient_1.name)
-      expect(page).to have_content(@patient_1.age)
-      expect(page).to have_content(@patient_2.name)
-      expect(page).to have_content(@patient_2.age)
-      expect(page).to have_content(@patient_3.name)
-      expect(page).to have_content(@patient_3.age)
+      visit "/doctors/#{@doctor.id}"
+      within("#patient-#{@patient_1.id}") do
+        expect(page).to have_content(@patient_1.name)
+        expect(page).to have_content(@patient_1.age)
+      end
+
+      within("#patient-#{@patient_2.id}") do
+        expect(page).to have_content(@patient_2.name)
+        expect(page).to have_content(@patient_2.age)
+      end
+
+      within("#patient-#{@patient_3.id}") do
+        expect(page).to have_content(@patient_3.name)
+        expect(page).to have_content(@patient_3.age)
+      end
     end
   end
 end

@@ -1,0 +1,12 @@
+<%= @doctor.name %> <br>
+<%= @doctor.specialty %><br>
+<%= @doctor.education %><br>
+<%= @doctor.hospital.name %><br>
+<table>
+<% @doctor.patients.each do |patient| %>
+  <tr id= "patient-<%=patient.id%>">
+    <td><%= patient.name %></td>
+    <td><%= patient.age %></td>
+  </tr>
+  <% end %>
+</table>
