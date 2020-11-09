@@ -9,6 +9,7 @@ RSpec.describe Doctor, type: :model do
   describe 'class methods' do
     before :each do
       @hospital = Hospital.create!(name: 'Grey Sloan Memorial Hospital')
+
       @doctor1 = @hospital.doctors.create!(name: 'Meredeth Grey',
                                           specialty: 'General Surgery Education',
                                           education: 'Harvard University')
@@ -29,7 +30,10 @@ RSpec.describe Doctor, type: :model do
                                           specialty: 'Super Surgeon',
                                           education: 'Harvard University')
     end
-    it '.unique_universities'
-      expect(Doctor.unique_universities).to eq([])
+
+    it '.unique_universities' do
+      expected = ["University of Pennsylvania", "Harvard University", "Stanford University", "John Hopkins University"]
+      expect(Doctor.unique_universities).to eq(expected)
+    end
   end
 end
