@@ -11,10 +11,10 @@ describe 'As a visitor' do
   end
   describe 'when I visit the patient index page' do
     it 'I see the names of all the patients listed from oldest to yougest' do
-      visit patient_path
-      expect(page.all('li')[0]).to have_content("#{@patient_1.name}, #{@patient_1.age}")
-      expect(page.all('li')[1]).to have_content("#{@patient_2.name}, #{@patient_2.age}")
-      expect(page.all('li')[2]).to have_content("#{@patient_3.name}, #{@patient_3.age}")
+      visit patients_path
+      expect(page.all('li')[0]).to have_content("#{@patient_2.name}, #{@patient_2.age}")
+      expect(page.all('li')[1]).to have_content("#{@patient_3.name}, #{@patient_3.age}")
+      expect(page.all('li')[2]).to have_content("#{@patient_1.name}, #{@patient_1.age}")
     end
   end
 end
